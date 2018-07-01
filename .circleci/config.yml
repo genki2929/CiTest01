@@ -13,12 +13,14 @@ jobs:
           source ./venv/bin/activate
           pip install django==1.11.7
           pip install sphinx
-          cd sw-project
-          make html
-          cd ../cafe/apps
+          cd cafe/apps
           # マイグレーションの実行
           python manage.py migrate
           # Djangoのテストの実行
           python manage.py test
+
+          cd ../../sw-project
+          make html
+          
       - store_artifacts:
           path: _build/html
