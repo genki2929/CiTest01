@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  lint:
     docker:
       - image: circleci/python:3.6
     steps:
@@ -11,16 +11,45 @@ jobs:
       - run: |
           python3.6 -m venv venv
           source ./venv/bin/activate
-          pip install django==1.11.7
-          pip install sphinx
-          cd cafe/apps
-          # マイグレーションの実行
-          python manage.py migrate
-          # Djangoのテストの実行
-          python manage.py test
 
-          cd ../../sw-project
-          make html
+          pip install flake8
+          flake8 test_calculations.py
+          # pip install django==1.11.7
+          # pip install sphinx
+          # cd cafe/apps
+          # # マイグレーションの実行
+          # python manage.py migrate
+          # # Djangoのテストの実行
+          # python manage.py test
+
+          # cd ../../sw-project
+          # make html
           
-      - store_artifacts:
-          path: sw-project/_build/html
+      # - store_artifacts:
+      #     path: sw-project/_build/html
+
+  test:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      # ソースコードのチェックアウト
+      - checkout
+      - run: |
+          python3.6 -m venv venv
+          source ./venv/bin/activate
+          pip install pytest
+          pytest test_calculations.py
+
+workflows:
+  version: 2
+  myworkflow:
+    jobs:
+      - lint:
+          filters:
+            branches:
+              only: master
+      
+      - test:
+          requires:
+            - lint
+
