@@ -6,5 +6,12 @@ jobs:
     steps:
       # ソースコードのチェックアウト
       - checkout
-      # unittestコマンド実行
-      - run: python test_calculations.py
+
+      # pytestインストール
+      - run: |
+          python3.6 -m venv venv
+          source ./venv/bin/activate
+          python test_calculations.py --junit-xml=test-results/pytest.xml
+          pip install pytest
+      - store_test_results:
+          path: test-results
