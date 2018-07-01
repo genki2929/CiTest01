@@ -1,4 +1,4 @@
-from django.test import TestCase
+import unittest
 
 from django.test import TestCase as DjangoTest
 
@@ -40,6 +40,6 @@ class TeaSearchFormTest(unittest.TestCase):
         params = dict(kind=["english","chinese"])
         form = TeaSearchForm(params)
         self.assertEqual(form.is_valid(),True,form.errors.as_text())
-        
+
 
   
