@@ -23,4 +23,4 @@ jobs:
           make html
           
       - store_artifacts:
-          path: _build/html
+          path: sw-project/_build/html
