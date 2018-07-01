@@ -12,8 +12,12 @@ jobs:
           python3.6 -m venv venv
           source ./venv/bin/activate
           pip install django==1.11.7
+          pip install sphinx
+          make html
           cd cafe/apps
           # マイグレーションの実行
           python manage.py migrate
           # Djangoのテストの実行
           python manage.py test
+      - store_artifacts:
+          path: _build/html
