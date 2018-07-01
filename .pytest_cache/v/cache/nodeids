@@ -1,0 +1,4 @@
+[
+  "test_calculations.py::CalculationsTest::test_divide_contain_zero",
+  "test_calculations.py::CalculationsTest::test_divide_normal"
+]
